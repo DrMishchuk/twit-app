@@ -1,0 +1,13 @@
+.navbarWrapper {
+    grid-area: navbar;
+    background-color:rgb(45, 90, 173);
+    height: 600px;
+    padding: 20px;
+}
+.item a{
+    color: floralwhite;
+    text-decoration: none;
+}
+.item a.active{
+    color: gold;
+}

@@ -1,0 +1,4 @@
+.contentWrapper{
+    grid-area: content;
+    background-color: deepskyblue;
+}
