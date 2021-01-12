@@ -19,12 +19,18 @@ let initialState = {
 const dialogsReducer = (state = initialState, action) => {
     
     if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-        state.newMessageBody = action.body;
+        return {
+            ...state,
+            newMessageBody: action.body
+        }
     }
     else if (action.type === SEND_MESSAGE) {
         let body = state.newMessageBody;
-        state.messages.push({id: 4, message: body});
-        state.newMessageBody = '';
+        return {
+            ...state,
+            newMessageBody: '',
+            messages: [...state.messages, {id: 4, message: body}] 
+        }
     }
     
     return state;

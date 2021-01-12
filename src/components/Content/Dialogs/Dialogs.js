@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import style from './Dialogs.module.css';
-import {sendMessageActionCreator, updateNewMessageBodyActionCreator} from './../../../redux/dialogsReducer';
+
 
 const DialogItem = (props) => {
     return (
@@ -24,11 +24,12 @@ const Dialogs = (props) => {
     let newMessageBody = props.dialogPage.newMessageBody;
 
     let onNewMessageChange = (event) => {
-        props.dispatch(updateNewMessageBodyActionCreator(event.target.value));
+        debugger;
+        props.updateMessage(event.target.value);
     }
 
     let onSendMessageClick = () => {
-        props.dispatch(sendMessageActionCreator());
+        props.sendMessage();
     }
     return (
         <div className={style.dialogs}>
@@ -52,4 +53,5 @@ const Dialogs = (props) => {
         </div>
     );
 }
+
 export default Dialogs;
