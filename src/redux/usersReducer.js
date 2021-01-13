@@ -4,9 +4,9 @@ const SET_USERTS ='SETUSERTS';
 
 let initialState = {
     users: [
-            {id: 1, name: "Dima M", status: "I am a boss", followed: false, country: "Ukraine"},
-            {id: 2, name: "Nastiya K", status: "Ya lublu", followed: false, country: "Ukraine"},
-            {id: 3, name: "Alina B", status: "I am to", followed: false, country: "Ukraine"}
+            // {id: 1, name: "Dima M", status: "I am a boss", followed: false, country: "Ukraine"},
+            // {id: 2, name: "Nastiya K", status: "Ya lublu", followed: false, country: "Ukraine"},
+            // {id: 3, name: "Alina B", status: "I am to", followed: false, country: "Ukraine"}
     ]
 }
 
@@ -33,7 +33,7 @@ const usersReducer = (state = initialState, action) => {
                 }),
             };
         case SET_USERTS: {
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: [...action.users]}
         }
         default:
             return state;
@@ -42,6 +42,6 @@ const usersReducer = (state = initialState, action) => {
 
 export const followActionCreator = (id) => ({ type: FOLLOW, userId: id });
 export const unfollowActionCreator = (id) => ({ type: UNFOLLOW, userId: id });
-export const setUsers = (users) => ({ type: SET_USERTS, useers});
+export const setUsers = (users) => ({ type: SET_USERTS, users});
 
-export default profileReducer;
+export default usersReducer;
