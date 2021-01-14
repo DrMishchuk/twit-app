@@ -1,3 +1,21 @@
 .selectedPage {
     font-weight: bold;
+    display: inline-block;
+    min-width: 48px;
+    border: 1px solid rgb(16, 182, 10);
+    background: chartreuse;
+    border-radius: 22px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 40px;
+}
+
+.paginationLink{
+    display: inline-block;
+    min-width: 48px;
+    border: 1px solid rgb(153, 169, 192);
+    border-radius: 22px;
+    text-align: center;
+    font-size: 20px;
+    line-height: 40px;
 }

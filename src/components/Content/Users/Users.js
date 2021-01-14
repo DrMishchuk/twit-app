@@ -7,29 +7,34 @@ import style from './Users.module.css';
 class Users extends React.Component {
 
     componentDidMount(){
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then( response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then( response => {
             this.props.setUser(response.data.items);
         });
     }
-    componentDidUpdate(){
-
+    
+    onPageChange = (page) => {
+        this.props.setCurrentPage(page);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then( response => {
+            this.props.setUser(response.data.items);
+        });
     }
-
     render(){
+        
+        let pageCount = this.props.totalUsersCount / this.props.pageSize;
 
-        let pageCount = Math.ceil(this.props.totalUserCount / this.props.pageSize);
-
-        let pages = [1,2,3,4,5];
-        for (let i=1; i<=pageCount; i+=1){
+        let pages = [ ];
+        for (let i=1; i<=this.props.pageSize; i+=1){
             pages.push(i);
+            
         }
         console.log(pages);
         return (
             <div>
-                <div>
-                    {pages.map( p => <span className={this.props.currentPage === p ? style.selectedPage : ""}>
-                        {p}
-                        </span>)}
+                <div className={style.containerPagination}>
+                    {pages.map( p => <span className={this.props.currentPage === p ? style.selectedPage : style.paginationLink}
+                                onClick={()=>{this.onPageChange(p)}}>
+                                {p}
+                            </span>)}
                 </div>
                  {this.props.users.map( user => (
                     <div key={user.id}>
