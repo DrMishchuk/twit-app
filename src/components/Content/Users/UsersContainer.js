@@ -1,6 +1,36 @@
+import React from 'react';
 import Users from './Users';
 import { connect } from 'react-redux';
-import { followActionCreator, setUsers, unfollowActionCreator, setCurrentPageActionCreator } from '../../../redux/usersReducer';
+import { followActionCreator, setUsers, unfollowActionCreator, setCurrentPageActionCreator, setToralUsersCountActionCreator } from '../../../redux/usersReducer';
+import axios from 'axios';
+
+class UsersAPIContainer extends React.Component{
+    
+    componentDidMount(){
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then( response => {
+            this.props.setUser(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount);
+        });
+    }
+    
+    onPageChange = (page) => {
+        this.props.setCurrentPage(page);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then( response => {
+            this.props.setUser(response.data.items);
+        });
+    }
+    
+    render(){
+        return <Users totalUsersCount={this.props.totalUsersCount}
+                      pageSize = {this.props.pageSize}
+                      onPageChange = {this.onPageChange}
+                      unfollow = {this.props.unfollow}
+                      follow = {this.props.follow}
+                      users = {this.props.users}
+                      currentPage = {this.props.currentPage}
+        />
+    }
+}
 
 let mapStateToProps = (state) => {
     return {
@@ -24,9 +54,12 @@ let mapDispatchToProps = (dispatch) => {
         },
         setCurrentPage: (page) => {
             dispatch(setCurrentPageActionCreator(page))
+        }, 
+        setTotalUsersCount: (totalCount) => {
+            dispatch(setToralUsersCountActionCreator(totalCount))
         }
     }
 }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIContainer);
 export default UsersContainer;
