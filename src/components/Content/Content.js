@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Content.module.css';
-import Profile from './Profile/Profile';
+import ProfileContainer from './Profile/ProfileContainer';
 import About from './About/About';
 
 import ContactList from './ContactList/ContactList';
@@ -11,8 +11,8 @@ import UsersContainer from './Users/UsersContainer';
 const Content = (props) => {
     return (
         <div className={style.contentWrapper}>
-            <Route path='/profile' 
-                   render={ () => <Profile  profilePage={props.state.profilePage} 
+            <Route path='/profile/:userId?' 
+                   render={ () => <ProfileContainer  profilePage={props.state.profilePage} 
                    dispatch={props.dispatch} /> } 
             />
             <Route path='/dialogs' render={ () => <DialogsContainer /> } />
